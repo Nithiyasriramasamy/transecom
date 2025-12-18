@@ -1,5 +1,5 @@
 // API utility - handles all backend requests
-const API_URL = 'http://transecom-2.onrender.com/api';
+const API_URL = 'https://transecom-2.onrender.com/api';
 
 
 // Get token from localStorage
