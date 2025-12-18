@@ -1,0 +1,126 @@
+╔════════════════════════════════════════════════════════════════╗
+║         AWS EC2 DEPLOYMENT - QUICK REFERENCE CARD              ║
+╚════════════════════════════════════════════════════════════════╝
+
+📚 DOCUMENTATION FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🚀 AWS_DEPLOYMENT_GUIDE.md    → Complete step-by-step guide
+  ⚡ QUICK_DEPLOY.md             → 15-minute fast deployment
+  ✅ DEPLOYMENT_CHECKLIST.md     → Verification checklist
+  🎯 🚀_AWS_DEPLOYMENT_READY.md  → Overview & summary
+
+🔧 DEPLOYMENT SCRIPTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  deploy.sh              → Main automated deployment script
+  ecosystem.config.js    → PM2 process manager configuration
+  configure-ec2-ip.js    → Interactive IP configuration helper
+  nginx.conf             → Nginx reverse proxy (optional)
+  .gitignore             → Git ignore patterns
+
+🌐 PORT CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Application: 5000  (Frontend + Backend API)
+  MongoDB:     27017 (Localhost only)
+  SSH:         22    (Your IP only)
+
+🔐 AWS SECURITY GROUP RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Port 22    → SSH (Your IP)
+  Port 80    → HTTP (0.0.0.0/0) - Optional
+  Port 5000  → Application (0.0.0.0/0)
+
+📋 DEPLOYMENT STEPS (QUICK)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  1. Launch EC2 (Ubuntu 22.04, t2.micro)
+  2. Configure security group (ports above)
+  3. Connect: ssh -i "key.pem" ubuntu@EC2_IP
+  4. Install: Node.js, MongoDB, PM2
+  5. Upload: scp -i "key.pem" -r . ubuntu@EC2_IP:~/ecommerce-app
+  6. Deploy: cd ~/ecommerce-app && ./deploy.sh
+  7. Start: pm2 start ecosystem.config.js
+  8. Access: http://EC2_IP:5000
+
+💻 ESSENTIAL COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Connect to EC2:
+    ssh -i "your-key.pem" ubuntu@YOUR_EC2_IP
+
+  Upload files:
+    scp -i "your-key.pem" -r . ubuntu@YOUR_EC2_IP:~/ecommerce-app
+
+  Deploy:
+    cd ~/ecommerce-app
+    chmod +x deploy.sh
+    ./deploy.sh
+
+  Start services:
+    pm2 start ecosystem.config.js
+    pm2 save
+    pm2 startup
+
+  Monitor:
+    pm2 status
+    pm2 logs
+    pm2 monit
+
+  Restart:
+    pm2 restart all
+
+  Stop:
+    pm2 stop all
+
+🔍 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Check services:     pm2 status
+  View logs:          pm2 logs
+  Check MongoDB:      sudo systemctl status mongod
+  Start MongoDB:      sudo systemctl start mongod
+  Check ports:        sudo lsof -i :5000
+  Test backend:       curl http://localhost:5001/api/products
+  Test frontend:      curl http://localhost:5000
+
+📁 IMPORTANT FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Backend config:     backend/.env
+  Frontend API:       frontend/src/utils/api.js
+  PM2 config:         ecosystem.config.js
+  MongoDB config:     /etc/mongod.conf
+
+🌐 ACCESS URLS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Application:        http://YOUR_EC2_IP:5000
+  API:                http://YOUR_EC2_IP:5000/api
+  Products API:       http://YOUR_EC2_IP:5000/api/products
+  Auth API:           http://YOUR_EC2_IP:5000/api/auth/login
+
+💰 COST ESTIMATE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Free Tier (12 months):  $0/month
+  After Free Tier:        ~$10-15/month
+
+✅ SUCCESS CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ☐ EC2 instance running
+  ☐ Security group configured
+  ☐ Can SSH to EC2
+  ☐ Node.js installed
+  ☐ MongoDB running
+  ☐ PM2 installed
+  ☐ Files uploaded
+  ☐ deploy.sh executed
+  ☐ Services started (pm2 status shows "online")
+  ☐ Can access http://EC2_IP:5000
+  ☐ Can register/login
+  ☐ Can add products
+  ☐ Can view products
+  ☐ Can add to cart
+
+🆘 NEED HELP?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Read: AWS_DEPLOYMENT_GUIDE.md (complete guide)
+  Read: QUICK_DEPLOY.md (fast deployment)
+  Use:  DEPLOYMENT_CHECKLIST.md (verification)
+
+╔════════════════════════════════════════════════════════════════╗
+║  🚀 Ready to deploy? Start with AWS_DEPLOYMENT_GUIDE.md!       ║
+╚════════════════════════════════════════════════════════════════╝
