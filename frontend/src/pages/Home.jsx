@@ -72,7 +72,7 @@ function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/products');
+        const response = await fetch('http://transecom-2.onrender.com//api/products');
         if (response.ok) {
           const data = await response.json();
           if (data && data.length > 0) {
