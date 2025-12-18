@@ -26,7 +26,7 @@ function Navbar() {
         <div className="flex flex-wrap items-center justify-between gap-4">
           {/* Logo area */}
           <Link to="/" className="flex items-center gap-1 border border-transparent hover:border-white rounded-sm p-2 cursor-pointer">
-            <span className="text-2xl font-bold tracking-tighter">newecome</span>
+            <span className="text-2xl font-bold tracking-tighter">newecome .</span>
             <span className="text-xs relative top-1"></span>
           </Link>
 
